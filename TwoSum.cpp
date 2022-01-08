@@ -1,4 +1,30 @@
- //O(nlgn) time complexity
+ //O(nlgn) time complexity algo hw 
+//2t(n/2)+2n
+void Sum(vector<int>& nums, int i, int j, int target,vector<int>& org)
+{
+    if (j - i - 1 > 2)
+    {
+        Sum(nums, i, i + j / 2, target,org);//t(n2)
+        Sum(nums, i + j / 2, j, target,org);//t(n/2)
+    }
+    for (int k = 0; k < org.size(); k++)//n
+    {
+        if (org[k] + nums[i] == target)
+        {
+            cout << nums[i] << endl;
+            cout << org[k] << endl;
+        }
+    }
+    for (int k = 0; k < org.size(); k++)//n
+    {
+        if (org[k] + nums[i+1] == target)
+        {
+            cout << nums[i+1] << endl;
+            cout << org[k] << endl;
+        }
+    }
+}
+//O(nsq) leetcode working
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) 
