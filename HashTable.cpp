@@ -1,5 +1,6 @@
 #pragma once
 #include "HashTable.h"
+#define ll long long int
 
 //copy constructor
 template<class t>
@@ -22,24 +23,34 @@ hashTable<t>::~hashTable()
         delete[] arr;
 }
 template<class t>
-int hashTable<t>::getSize()
+ll hashTable<t>::getSize()
 {
     return size;
 }
 //returns currLoc of arr value and dec pointer
 template<class t>
-t hashTable<t>::deleteKey()
+bool hashTable<t>::deleteKey()
 {
+    bool reSized = false;
     if (isFull())
+    {
         this->resize(this->size * 2);
+        reSized = true;
+    }
     if (this->currLoc <= (this->size / 4))
+    {
         this->resize(this->size / 2);
+        reSized = true;
+    }
     if (!isEmpty())
-        return arr[currLoc--];
+    {
+        currLoc--;
+        return reSized;
+    }
     else
     {
         currLoc = -1;
-        return -1;
+        return reSized;
     }
 }
 //return value at currLoc of arr
@@ -62,21 +73,28 @@ bool hashTable<t>::isEmpty()
 }
 template<class t>
 //inc pointer and insert value at currLoc of arr
-void hashTable<t>::insert(t value)
+bool hashTable<t>::insert(ll index, t value)
 {
+    bool reSized = false;
     if (isFull())
+    {
         this->resize(this->size * 2);
-    if (this->currLoc <= (this->size / 4) && currLoc > 0)
-        this->resize(this->size / 2);
-    if (!isFull())
-        arr[++currLoc] = value;
+        reSized = true;
+    }
+    else
+    {
+        cout << "this is key value " << value << " hashed to index " << index << endl;
+        ++currLoc;
+        arr[index] = value;
+    }
+    return reSized;
 }
 template<class t>
 //print the values inserted in arr till currLoc 
 void hashTable<t>::printarr()
 {
     cout << "\nTable is::";
-    for (int i = currLoc; i >= 0; i--)
+    for (ll i = currLoc; i >= 0; i--)
     {
         cout << arr[i] << " ";
     }
@@ -86,19 +104,21 @@ template<class t>
 //manage size
 //if 1/4 of arr is empty reduces its size by half
 //if arr is full double its size
-void hashTable<t>::resize(int newSize) //here size must be size*size or size/4
+void hashTable<t>::resize(ll newSize) //here size must be size*size or size/4
 {
-    t* temp = new t[currLoc + 1];
-    for (int i = 0; i <= currLoc; i++)
-    {
-        temp[i] = arr[i];
-    }
     if (arr != NULL)
         delete[] arr;
     this->size = newSize;
     this->arr = new t[size];
-    for (int i = 0; i <= currLoc; i++)
+    for (int i = 0; i < size; i++)
     {
-        arr[i] = temp[i];
+        arr[i] = 0;
     }
+    currLoc = -1;
+}
+
+template<class t>
+void hashTable<t>::clearTable()
+{
+    this->currLoc = -1;
 }

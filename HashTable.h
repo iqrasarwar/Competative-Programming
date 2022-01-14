@@ -1,16 +1,17 @@
 #pragma once
 #include<iostream>
 using namespace std;
+#define ll long long int
 
 template <class t>
 class hashTable
 {
 private:
     t* arr;
-    int size;
-    int currLoc;
+    ll size;
+    ll currLoc;
 public:
-    hashTable(int s = 3)
+    hashTable(ll s = 3)
     {
         size = s;
         currLoc = -1;
@@ -18,12 +19,13 @@ public:
     }
     hashTable(const hashTable& s);
     ~hashTable();
-    int getSize();
-    t deleteKey();
+    ll getSize();
+    bool deleteKey();
     t currLoc_();
     bool isFull();
     bool isEmpty();
-    void insert(t value);
+    bool insert(ll index, t value);
     void printarr();
-    void resize(int newSize);
+    void resize(ll newSize);
+    void clearTable();
 };
