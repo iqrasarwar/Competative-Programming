@@ -1,79 +1,63 @@
 #pragma once
 #include "HashTable.h"
-#define ll long long int
+#define ll unsigned long long int
 
-//copy constructor
-template<class t>
-hashTable<t>::hashTable(const hashTable& s)
-{
-    this->size = s.size;
-    this->currLoc = -1;
-    arr = new t[size];
-    for (int i = 0; i < size; i++)
-    {
-        if (!isFull())
-            arr[++currLoc] = s.arr[i];
-    }
-}
 //destructor
-template<class t>
-hashTable<t>::~hashTable()
+ 
+hashTable::~hashTable()
 {
     if (arr != nullptr)
         delete[] arr;
 }
-template<class t>
-ll hashTable<t>::getSize()
+
+ll hashTable::getSize()
 {
     return size;
 }
-//returns currLoc of arr value and dec pointer
-template<class t>
-bool hashTable<t>::deleteKey()
+//returns currCunt of arr value and dec pointer
+bool hashTable::deleteKey(ll index,ll value)
 {
     bool reSized = false;
-    if (isFull())
-    {
-        this->resize(this->size * 2);
-        reSized = true;
-    }
-    if (this->currLoc <= (this->size / 4))
+    if (this->currCunt <= (this->size / 4))
     {
         this->resize(this->size / 2);
         reSized = true;
     }
     if (!isEmpty())
     {
-        currLoc--;
-        return reSized;
+        //cout << "this is key value " << value << " deleted from index " << index << endl;
+        IntList listt = arr[index];
+        IntList::iterator itr = listt.begin();
+        for (; itr != listt.end(); itr++)
+        {
+            if (value == *itr)
+            {
+                currCunt--;
+                arr[index].remove(value);
+            }
+        }
     }
     else
-    {
-        currLoc = -1;
-        return reSized;
-    }
+       currCunt = 0;
+    return reSized;
 }
-//return value at currLoc of arr
-template<class t>
-t hashTable<t>::currLoc_()
+//return value at currCunt of arr
+ll hashTable::currCount()
 {
-    return arr[currLoc];
+    return currCunt;
 }
 //return true if arr is full
-template<class t>
-bool hashTable<t>::isFull()
+bool hashTable::isFull()
 {
-    return currLoc == size - 1;
+    return currCunt == size;
 }
 //return true if arr is empty
-template<class t>
-bool hashTable<t>::isEmpty()
+bool hashTable::isEmpty()
 {
-    return currLoc == -1;
+    return currCunt == 0;
 }
-template<class t>
-//inc pointer and insert value at currLoc of arr
-bool hashTable<t>::insert(ll index, t value)
+//inc pointer and insert value at currCunt of arr
+bool hashTable::insert(ll index, ll value)
 {
     bool reSized = false;
     if (isFull())
@@ -81,44 +65,87 @@ bool hashTable<t>::insert(ll index, t value)
         this->resize(this->size * 2);
         reSized = true;
     }
-    else
+    if (!isFull())
     {
-        cout << "this is key value " << value << " hashed to index " << index << endl;
-        ++currLoc;
-        arr[index] = value;
+       // cout << "this is key value " << value << " hashed to index " << index << endl;
+        currCunt++;
+        arr[index].push_back(value);
     }
     return reSized;
 }
-template<class t>
-//print the values inserted in arr till currLoc 
-void hashTable<t>::printarr()
+ 
+//print the values inserted in arr till currCunt 
+void hashTable::printarr()
 {
-    cout << "\nTable is::";
-    for (ll i = currLoc; i >= 0; i--)
+    cout << "\nTable is::" << endl;
+    int j = 0;
+    for (ll i = 0; i < size; i++)
     {
-        cout << arr[i] << " ";
+        cout << i << ":: ";
+        IntList::iterator itr = arr[i].begin();
+        for (; itr != arr[i].end(); itr++)
+        {
+            j++;
+            cout << *itr << "\t";
+        }
+
+        cout << endl;
     }
-    cout << endl;
+    cout << j << endl;
 }
-template<class t>
+ 
 //manage size
 //if 1/4 of arr is empty reduces its size by half
 //if arr is full double its size
-void hashTable<t>::resize(ll newSize) //here size must be size*size or size/4
+void hashTable::resize(ll newSize) //here size must be size*size or size/4
 {
-    if (arr != NULL)
-        delete[] arr;
-    this->size = newSize;
-    this->arr = new t[size];
-    for (int i = 0; i < size; i++)
+    ll* tempArr = new ll[currCunt];
+    int j = 0;
+    for (int i = 0; i < currCunt; i++)
     {
-        arr[i] = 0;
+        IntList::iterator itr = arr[i].begin();
+        for (; itr != arr[i].end(); itr++,j++)
+        {
+            tempArr[j] = *itr;
+        }
     }
-    currLoc = -1;
+    if (arr != NULL)
+       delete[] arr;
+    this->size = newSize; 
+    arr = new IntList[size];
+    int x = currCunt;
+    currCunt = 0;
+    for (int i = 0; i < x; i++)
+    {
+        ll index = hashThis(tempArr[i], newSize);
+        insert(index, tempArr[i]);
+    }
+}
+ 
+void hashTable::searchVal(ll value)
+{
+    ll index = hashThis(value, size);
+    IntList listt = arr[index];
+    IntList::iterator itr = listt.begin();
+    for (; itr != listt.end(); itr++)
+    {
+        if (value == *itr)
+        {
+           cout << "Searching " << value << " in hash table:";
+           cout << "Found at index " << index << " as " << *itr << endl;
+        }
+    }
 }
 
-template<class t>
-void hashTable<t>::clearTable()
+void hashTable::setParms(ll a, ll b, ll prime)
 {
-    this->currLoc = -1;
+    this->a = a;
+    this->b = b;
+    this->prime = prime;
+}
+
+ll hashTable::hashThis(ll k, ll m)
+{
+    ll hk = (((a * k) + b) % prime) % m;
+    return hk;
 }

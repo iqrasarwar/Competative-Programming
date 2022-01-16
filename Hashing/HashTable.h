@@ -1,31 +1,40 @@
 #pragma once
 #include<iostream>
+#include<list>
 using namespace std;
-#define ll long long int
+#define ll unsigned long long int
+typedef list<ll> IntList; // define IntList to be a std::list of int elements 
 
-template <class t>
 class hashTable
 {
 private:
-    t* arr;
+    IntList* arr;
     ll size;
-    ll currLoc;
+    ll currCunt;
+    ll a;
+    ll b;
+    ll prime;
 public:
     hashTable(ll s = 3)
     {
+        a = 0, b = 0, prime = 0, currCunt = 0;
         size = s;
-        currLoc = -1;
-        arr = new t[size];
+        arr = new IntList[size];
+        for (ll i = 0; i < size; i++)
+        {
+            arr[i] = IntList();
+        }
     }
-    hashTable(const hashTable& s);
     ~hashTable();
     ll getSize();
-    bool deleteKey();
-    t currLoc_();
+    bool deleteKey(ll index, ll value);
+    ll currCount();
     bool isFull();
     bool isEmpty();
-    bool insert(ll index, t value);
+    bool insert(ll index, ll value);
     void printarr();
     void resize(ll newSize);
-    void clearTable();
+    void searchVal(ll value);
+    void setParms(ll a,ll b,ll prime);
+    ll hashThis(ll k, ll m);
 };
