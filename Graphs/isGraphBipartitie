@@ -1,0 +1,44 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+vector<int> list[200];
+int color[200];
+bool isBiPartite = true;
+
+void bipartitie(int vertex,int c)
+{
+	if (color[vertex] != -1)
+	{
+		if (color[vertex] == c)
+			return;
+		isBiPartite = false;
+		return;
+	}
+	color[vertex] = c;
+	for (int i = 0; i < list[vertex].size(); i++)
+	{
+		bipartitie( list[vertex][i] ,c xor 1);
+	}
+}
+
+int main()
+{
+	int n, m;
+	cin >> n >> m;
+	for (int i = 0; i < n; i++)
+	{
+		int a, b = 0;
+		cin >> a >> b;
+		list[a].push_back(b);
+	}
+	for (int i = 0; i < 200; i++)
+	{
+		color[i] = -1;
+	}
+	bipartitie(1, 1);
+	if (isBiPartite)
+		cout << "Graph is bipatrtite" << endl;
+	else
+		cout << "Graph is not bipartite" << endl;
+}
