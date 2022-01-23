@@ -1,0 +1,37 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+vector<int> list[200];
+int degree[200];
+bool vis[200];
+//supposing the degree of node is the value of the node(i.e. its index in the list)
+void TwoDegree(int vertex,int c)
+{
+	if (vis[vertex] == true)
+		return;
+	vis[vertex] = true;
+	for (int i = 0; i < list[vertex].size(); i++)
+	{
+		degree[vertex] += list[vertex][i];
+		TwoDegree( list[vertex][i] ,c xor 1);
+	}
+}
+
+int main()
+{
+	int n, m;
+	cin >> n >> m;
+	for (int i = 0; i < n; i++)
+	{
+		int a, b = 0;
+		cin >> a >> b;
+		list[a].push_back(b);
+	}
+	TwoDegree(1, 1);
+	for (int i = 0; i < 200; i++)
+	{
+		if (degree[i] > 0)
+			cout << "Degree of " << i << " is " << degree[i] << endl;
+	}
+}
