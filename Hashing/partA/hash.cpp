@@ -10,7 +10,7 @@ ll a = rand() % p + 1;
 ll b = rand() % prime;
 ll m = 3;
 hashTable table;
-
+ 
 //returns the array of n distinct integers in range [1,2^w] generated randomly
 ll* generateRandomKeys(ll n)
 {
@@ -30,7 +30,6 @@ ll hashThisK(ll k, ll m)
 	ll hk = (((a * k) + b) % prime) % m;
 	return hk;
 }
-
 ll hashIt(ll* array,ll n)
 {
 	m = 3;
@@ -44,7 +43,7 @@ ll hashIt(ll* array,ll n)
 			//insert
 			if (table.insert(hashThisK(array[i], m), array[i])) //indexOfInsertion,valueOfKey
 			{
-				cout << "resized" << endl;
+				//cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! RESIZED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
 			}
 
 		}
@@ -56,12 +55,12 @@ ll hashIt(ll* array,ll n)
 				int d = rand() % n;
 				if (table.deleteKey(hashThisK(array[d], m), array[d])) //indexOfDeletion,valueOfKey
 				{
-					cout << "resized" << endl;
+					//cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! RESIZED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
 				}
 			}
 			else
 			{
-				cout << "Hash table has no values to delete" << endl;
+				//cout << "Hash table has no values to delete" << endl;
 			}
 		}
 		else
@@ -74,59 +73,23 @@ ll hashIt(ll* array,ll n)
 			}
 			else
 			{
-				cout << "Hash table has no values to Search" << endl;
+				//cout << "Hash table has no values to Search" << endl;
 			}
 		}
 	}
 	table.printarr();
+	table.printCollisions();
 	return 0;
 }
 int main()
 {
+	cout << "\t\t----------------------------- HASHING WITH RESIZING --------------------------------------" << endl;
 	ll n;
-	cout << "enter an integer n:";
+	cout << "Enter an integer n:";
 	cin >> n;
 	ll *arr = new ll[n];
 	arr = generateRandomKeys(n);
-	//cout << "Keys are::" << endl;
-	for (ll i = 0; i < n; i++)
-	{
-		//cout << arr[i] << "\t";
-	}
-	cout<< endl;
 	hashIt(arr, n);
-	//int c = hash_a(5000);
-	/*hashTable<ll> a;
-	for (int i = 0; i < 100; i++)
-	{
-		a.insert(i);
-		cout << "we are inseting " << i << " while size is " << a.getSize() << endl;
-	}
-	for (int i = 0; i < 100; i++)
-	{
-		a.deleteKey();
-		cout << "we are deleting " << 100-i << " while size is " << a.getSize() << endl;
-	}*/
 	return 0;
 }
 
-
-//do we need to change a b p each time?
-//count parameter 1 for each index? or the linked list size for each?
-//how we know it is correct or not?
-
-
-/*
-int getM(int n)
-{
-	m = 3;
-	cout << "n is" << n << endl;
-	for (int i = 0; m < n; i++)
-	{
-		m = m * 2;
-		cout << "m is " << m << endl;
-	}
-	cout << m;
-	return m;
-}
-*/
