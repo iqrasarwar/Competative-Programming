@@ -25,15 +25,17 @@ namespace PerfectHashing
             } while (!isPrime(p));
             return p;
         }
-         ulong S;
+        ulong S;
         ulong[] arr;
         ulong a { get; set; }
         ulong b { get; set; }
         ulong p { get; set; }
         ulong prime { get; set; }
-        public pHashing(ulong s)
+        public ulong currCount { get; set; }
+        public ulong randomTries { get; set; }
+        public pHashing()
         {
-            S = s;
+            S = 7000;
             arr = new ulong[S];
             Random rnd = new Random();
             prime = (ulong)(Math.Pow(2, 61) - 1);
@@ -44,59 +46,73 @@ namespace PerfectHashing
             }
             a = (ulong)rnd.Next() % (p) + 1;
             b = (ulong)rnd.Next() % prime;
+            randomTries = 0;
         }
-        public void insert(ulong index, ulong value)
+        //return true if arr is full
+        bool isFull()
         {
-            ulong newIndex = hashThis(value);
-            if (arr[newIndex] == 0)
+            return currCount == S;
+        }
+        public void insert(ulong value)
+        {
+            if (isFull())
+                resize(S * 2);
+            if (!isFull())
             {
-                arr[newIndex] = value;
-                return;
-            }
-            else
-            {
-                bool avoided = false;
-                ulong[] temp = new ulong[S];
-                ulong colliding = arr[newIndex];
-                Console.WriteLine("for index " + newIndex + " collision of " + value + " and " + colliding + " with a " + a + " b " + b);
-                for (ulong i = 0; i < S; i++)
+                ulong newIndex = hashThis(value);
+                if (arr[newIndex] == 0)
                 {
-                    if (i != newIndex)
-                        temp[i] = arr[i];
-                    else
-                        temp[i] = 0;
-                    arr[i] = 0;
+                    currCount++;
+                    arr[newIndex] = value;
+                    return;
                 }
-                while (avoided == false)
+                else
                 {
-                    Random rnd = new Random();
-                    prime = getRandPrime();
-                    a = (ulong)rnd.Next() % p + 1;
-                    b = (ulong)rnd.Next() % prime;
-                    ulong thisIndex = hashThis(colliding);
-                    ulong thisValue = hashThis(value);
-                    if (thisIndex == thisValue)
+                    bool avoided = false;
+                    ulong size = S;
+                    ulong[] temp = new ulong[size];
+                    ulong colliding = arr[newIndex];
+                    Console.WriteLine("for index " + newIndex + " collision of " + value + " and " + colliding + " with a " + a + " b " + b);
+                    for (ulong i = 0; i < S; i++)
                     {
-                        Console.WriteLine("for index " + thisIndex + " still collding with a " + a + " b " + b + " and prime no " + prime);
-                        continue;
+                        if (i != newIndex)
+                            temp[i] = arr[i];
+                        else
+                            temp[i] = 0;
+                        arr[i] = 0;
                     }
-                    else
+                    while (avoided == false)
                     {
-                        Console.WriteLine("collision resolved!");
-                        arr[thisIndex] = colliding;
-                        arr[thisValue] = value;
-                        avoided = true;
+                        randomTries++;
+                        Random rnd = new Random();
+                        prime = getRandPrime();
+                        a = (ulong)rnd.Next() % p + 1;
+                        b = (ulong)rnd.Next() % prime;
+                        ulong thisIndex = hashThis(colliding);
+                        ulong thisValue = hashThis(value);
+                        if (thisIndex == thisValue)
+                        {
+                            Console.WriteLine("for index " + thisIndex + " still collding with a " + a + " b " + b + " and prime no " + prime);
+                            continue;
+                        }
+                        else
+                        {
+                            Console.WriteLine("collision resolved!");
+                            arr[thisIndex] = colliding;
+                            arr[thisValue] = value;
+                            currCount = 2;
+                            avoided = true;
+                        }
                     }
+                    for (ulong i = 0; i < size; i++)
+                    {
+                        if (temp[i] != 0)
+                            insert(temp[i]);
+                    }
+                    Console.WriteLine("totally collision resolved!");
                 }
-                for (ulong i = 0; i < S; i++)
-                {
-                    if (temp[i] != 0)
-                        insert(index, temp[i]);
-                }
-                Console.WriteLine("totally collision resolved!");
             }
         }
-
         public ulong printarr()
         {
             ulong j = 0;
@@ -105,9 +121,8 @@ namespace PerfectHashing
                 if (arr[i] != 0)
                 {
                     j++;
-
+                    Console.Write(arr[i] + "   ");
                 }
-                Console.Write(arr[i] + "   ");
             }
 
             return j;
@@ -123,6 +138,22 @@ namespace PerfectHashing
         {
             ulong hk = ((a * key) + b) % prime % S;
             return hk;
+        }
+        void resize(ulong newSize) //here size must be size*size or size/4
+        {
+            Console.WriteLine("RESIZING");
+            ulong[] tempArr = new ulong[currCount];
+            for (ulong i = 0; i < currCount; i++)
+            {
+                if (arr[i] != 0)
+                    tempArr[i] = arr[i];
+            }
+            S = newSize;
+            arr = new ulong[S];
+            ulong x = currCount;
+            currCount = 0;
+            for (ulong i = 0; i < x; i++)
+                insert(tempArr[i]);
         }
 
     }
