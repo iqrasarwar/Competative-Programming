@@ -30,7 +30,7 @@ int LCS(int arr[1002][1002], int x , int y)
         int x, y;
         int arr[1002][1002];
          for (int i = 0; i < 1002; i++)
-		{
+	 {
 			for (int j = 0; j < 1002; j++)
 			{
 				arr[i][j] = 0;
