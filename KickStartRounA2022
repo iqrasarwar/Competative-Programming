@@ -1,0 +1,48 @@
+#include<iostream>
+#include<vector>
+#include<string>
+#include<algorithm>
+#include <map>
+#define ll unsigned long long int
+using namespace std;
+int main()
+{
+	ll t;
+	cin >> t;
+	vector<ll> res;
+	while (t--)
+	{
+		vector<ll> s;
+		ll n;
+		cin >> n;
+		string str = to_string(n);
+		for (ll i = 0; i < 9; i++)
+		{
+			string temp = to_string(i + 1) + str;
+			ll tempp = stoull(temp);
+			if (tempp % 9 == 0)
+				s.push_back(tempp);
+		}
+		for (ll i = 1; i < str.length(); i++)
+		{
+			for (ll j = 0; j < 10; j++)
+			{
+				string temp = str.substr(0,i) + to_string(j) + str.substr(i);
+				ll tempp = stoull(temp);
+				if (tempp % 9 == 0)
+					s.push_back(tempp);
+			}
+		}
+		for (ll i = 0; i < 10; i++)
+		{
+			string temp = str + to_string(i);
+			ll tempp = stoull(temp);
+			if (tempp % 9 == 0)
+				s.push_back(tempp);
+		}
+		sort(s.begin(), s.end());
+		res.push_back(s[0]);
+	}
+	for (ll i = 0; i < res.size(); i++)
+		cout << "Case #" << i + 1 << ": " << res[i] << endl;
+}
