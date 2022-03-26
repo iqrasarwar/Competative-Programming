@@ -15,3 +15,22 @@ public:
     return s;
 }
 };
+//100 PERCENT FASTER METHOD
+class Solution {
+public:
+    int findGCD(vector<int>& nums) 
+    {
+        sort(nums.begin(), nums.end());
+        int den = nums[0]; 
+        int num = nums[nums.size() - 1]; 
+        if ((num % den) == 0)
+            return den;
+        int rem;
+        while ((rem = (num % den)) != 0)
+        {
+            num = den;
+            den = rem > 0?rem:den;
+        }
+        return den;
+    }
+};
