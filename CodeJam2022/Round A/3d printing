@@ -1,0 +1,87 @@
+#include<iostream>
+#include<map>
+#include<algorithm>
+#include <vector>
+#define ll long long int
+using namespace std;
+
+int main()
+{
+	ll t;
+	cin >> t;
+	vector<ll> v;
+	while (t--)
+	{
+		vector<pair<ll,ll>> c1,c2,c3,c4;
+		for (ll i = 0; i < 3; i++)
+		{
+			ll a, b, c, d;
+			cin >> a >> b >> c >> d;
+			c1.push_back({ a ,i+1});
+			c2.push_back({ b ,i + 1 });
+			c3.push_back({ c ,i + 1 });
+			c4.push_back({ d ,i + 1 });
+		}
+		sort(c1.begin(), c1.end());
+		sort(c2.begin(), c2.end());
+		sort(c3.begin(), c3.end());
+		sort(c4.begin(), c4.end());
+		ll sum = c1[0].first + c2[0].first + c3[0].first + c4[0].first, total = 1000000;
+		if (sum >= total)
+		{
+			ll adjust = abs(total - sum);
+			ll arr[4] = {c1[0].first , c2[0].first, c3[0].first, c4[0].first};
+			sort(arr, arr + 4);
+			ll leftamount = adjust - c4[0].first;
+			if (leftamount < 0)
+				c4[0].first = abs(leftamount);
+			else
+			{
+				c4[0].first = 0;
+				leftamount = leftamount - c3[0].first;
+				if (leftamount < 0)
+					c3[0].first = abs(leftamount);
+				else
+				{
+					c3[0].first = 0;
+					leftamount = leftamount - c2[0].first;
+					if (leftamount < 0)
+						c2[0].first = abs(leftamount);
+					else
+					{
+						c2[0].first = 0;
+						leftamount = leftamount - c1[0].first;
+						if (leftamount < 0)
+							c1[0].first = abs(leftamount);
+						else
+						{
+							v.push_back(-1);
+							continue;
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			v.push_back(-1);
+			continue;
+		}
+		v.push_back(c1[0].first);
+		v.push_back(c2[0].first);
+		v.push_back(c3[0].first);
+		v.push_back(c4[0].first);
+	}
+	ll z = 1;
+	for (ll k = 0; k < v.size(); k++)
+	{
+		cout << "Case #" << z++ << ": ";
+		if (v[k] != -1)
+		{
+			cout << v[k] << " " << v[k + 1] << " " << v[k + 2] << " " << v[k + 3] << endl;
+			k += 3;
+		}
+		else
+			cout << "IMPOSSIBLE" << endl;
+	}
+}
