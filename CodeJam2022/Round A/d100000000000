@@ -1,0 +1,46 @@
+#include<iostream>
+#include<map>
+#include<algorithm>
+#include <vector>
+using namespace std;
+
+int main()
+{
+	int t;
+	cin >> t;
+	vector<int> vv;
+	while (t--)
+	{
+		vector<int> v;
+		int n;
+		cin >> n;
+		for (int i = 0; i < n; i++)
+		{
+			int inp;
+			cin >> inp;
+			v.push_back(inp);
+		}
+		sort(v.begin(), v.end());
+		int s = 0;
+		for (int i = 0; i < v.size(); i++)
+		{
+			if (v[i] > s)
+				s++;
+		}
+		vv.push_back(s);
+	}
+	for (int k = 0; k < vv.size(); k++)
+	{
+		//vector<vector<char>> v = vv[k];
+		cout << "Case #" << k + 1 << ": ";
+		//for (int i = 0; i < v.size(); i++)
+		//{
+			//for (int j = 0; j < vv.size(); j++)
+			//{
+				cout << vv[k] << endl;
+			//}
+		//	cout << endl;
+		//}
+	}
+
+}
