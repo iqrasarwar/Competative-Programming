@@ -1,0 +1,103 @@
+#include<iostream>
+#include<map>
+#include<algorithm>
+#include <vector>
+using namespace std;
+
+int main()
+{
+	int t;
+	cin >> t;
+	int cs = 1;
+	vector<vector<vector<char>>> vv;
+	while (t--)
+	{
+		int r, c;
+		cin >> r >> c;
+		vector<vector<char>> v;
+		vector<char> v1;
+		v1.push_back('.');
+		v1.push_back('.');
+		v1.push_back('+');
+		v1.push_back('-');
+		v1.push_back('+');
+		v.push_back(v1);
+		v1.clear();
+		v1.push_back('.');
+		v1.push_back('.');
+		v1.push_back('|');
+		v1.push_back('.');
+		v1.push_back('|');
+		v.push_back(v1);
+		v1.clear();
+		v1.push_back('+');
+		v1.push_back('-');
+		v1.push_back('+');
+		v1.push_back('-');
+		v1.push_back('+');
+		v.push_back(v1);
+		v1.clear();
+		v1.push_back('|');
+		v1.push_back('.');
+		v1.push_back('|');
+		v1.push_back('.');
+		v1.push_back('|');
+		v.push_back(v1);
+		v1.clear();
+		v1.push_back('+');
+		v1.push_back('-');
+		v1.push_back('+');
+		v1.push_back('-');
+		v1.push_back('+');
+		v.push_back(v1);
+		v1.clear();
+		int k = 0;
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 2; j < c; j++)
+			{
+				if (k == 0)
+				{
+					v[k].push_back('-');
+					v[k].push_back('+');
+				}
+				v[k + 1].push_back('.');
+				v[k + 1].push_back('|');
+				v[k + 2].push_back('-');
+				v[k + 2].push_back('+');
+			}
+			k += 2;
+		}
+		for (int i = 2; i < r; i++)
+		{
+			vector<char> vrow1, vrow2;
+			vrow1.push_back('|');
+			vrow2.push_back('+');
+			for (int j = 0; j < c; j++)
+			{
+				vrow1.push_back('.');
+				vrow1.push_back('|');
+				vrow2.push_back('-');
+				vrow2.push_back('+');
+			}
+			v.push_back(vrow1);
+			v.push_back(vrow2);
+		}
+		vv.push_back(v);
+		
+	}
+	for (int k = 0; k < vv.size(); k++)
+	{
+		vector<vector<char>> v = vv[k];
+		cout << "Case #" << cs++ << ":" << endl;
+		for (int i = 0; i < v.size(); i++)
+		{
+			for (int j = 0; j < v[i].size(); j++)
+			{
+				cout << v[i][j];
+			}
+			cout << endl;
+		}
+	}
+
+}
