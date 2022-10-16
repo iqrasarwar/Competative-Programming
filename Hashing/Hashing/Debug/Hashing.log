@@ -1,6 +1,0 @@
-﻿  HashTable.cpp
-C:\Users\BUTT SYSTEMS\source\repos\Hashing\HashTable.h(22,27): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
-C:\Users\BUTT SYSTEMS\source\repos\Hashing\HashTable.cpp(130,26): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
-C:\Users\BUTT SYSTEMS\source\repos\Hashing\HashTable.cpp(144,23): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
-C:\Users\BUTT SYSTEMS\source\repos\Hashing\HashTable.cpp(145,11): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'int', possible loss of data
-  Hashing.vcxproj -> C:\Users\BUTT SYSTEMS\source\repos\Hashing\Debug\Hashing.exe

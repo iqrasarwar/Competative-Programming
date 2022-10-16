@@ -1,0 +1,16 @@
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\bin\Debug\net5.0\PerfectHashing.exe
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\bin\Debug\net5.0\PerfectHashing.deps.json
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\bin\Debug\net5.0\PerfectHashing.runtimeconfig.json
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\bin\Debug\net5.0\PerfectHashing.runtimeconfig.dev.json
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\bin\Debug\net5.0\PerfectHashing.dll
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\bin\Debug\net5.0\ref\PerfectHashing.dll
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\bin\Debug\net5.0\PerfectHashing.pdb
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\obj\Debug\net5.0\PerfectHashing.csproj.AssemblyReference.cache
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\obj\Debug\net5.0\PerfectHashing.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\obj\Debug\net5.0\PerfectHashing.AssemblyInfoInputs.cache
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\obj\Debug\net5.0\PerfectHashing.AssemblyInfo.cs
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\obj\Debug\net5.0\PerfectHashing.csproj.CoreCompileInputs.cache
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\obj\Debug\net5.0\PerfectHashing.dll
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\obj\Debug\net5.0\ref\PerfectHashing.dll
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\obj\Debug\net5.0\PerfectHashing.pdb
+C:\Users\BUTT SYSTEMS\source\repos\PerfectHashing\obj\Debug\net5.0\PerfectHashing.genruntimeconfig.cache
