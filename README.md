@@ -1,2 +1,4 @@
 # Competative Programming 
-algorithm problems from leetcode and algo and codechef
+algorithm problems from 
+- leetcode and algo and 
+- codechef
