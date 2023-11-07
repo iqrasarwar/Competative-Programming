@@ -9,3 +9,9 @@ long long compute_hash(string const& s) {
     }
     return hash_value;
 }
+
+
+// conversions
+
+// char-'a' gives index in alphabet
+// 'z'-'a' = 26
