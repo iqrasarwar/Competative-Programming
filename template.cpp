@@ -51,6 +51,34 @@ vector<int> kmp(string s) {
     return pi;
 }
 
+int countUniqueSubstrings(const string &inputString) {
+    int stringLength = inputString.size();
+
+    const int primeBase = 31;
+    const int modulo = 1e9 + 9;
+    vector<long long> primePowers(stringLength);
+    primePowers[0] = 1;
+
+    for (int i = 1; i < stringLength; i++)
+        primePowers[i] = (primePowers[i - 1] * primeBase) % modulo;
+
+    vector<long long> prefixHashes(stringLength + 1, 0);
+    for (int i = 0; i < stringLength; i++)
+        prefixHashes[i + 1] = (prefixHashes[i] + (inputString[i] - 'a' + 1) * primePowers[i]) % modulo;
+
+    int countUnique = 0;
+    for (int length = 1; length <= stringLength; length++) {
+        unordered_set<long long> uniqueSubstrings;
+        for (int i = 0; i <= stringLength - length; i++) {
+            long long currentHash = (prefixHashes[i + length] + modulo - prefixHashes[i]) % modulo;
+            currentHash = (currentHash * primePowers[stringLength - i - 1]) % modulo;
+            uniqueSubstrings.insert(currentHash);
+        }
+        countUnique += uniqueSubstrings.size();
+    }
+    return countUnique;
+}
+
 // conversions
 
 // char-'a' gives index in alphabet
